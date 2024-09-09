@@ -4,8 +4,8 @@ export default function LineItems() {
   return (
     <div>
       <div className="line-items">
-        <div className="flex justify-between mb-4">
-          <div className="flex flex-row">
+        <div className="flex mb-4">
+          <div className="flex flex-row justify-between w-full">
             <div className="img-box mr-2 relative">
               <img
                 src="https://pagedone.io/asset/uploads/1701162850.png"
@@ -39,15 +39,16 @@ export default function LineItems() {
           </div>
           </div>
         </div>
-        <div className="flex justify-between mb-4">
-          <div className="flex flex-row mt-4">
+
+        <div className="flex mb-4">
+          <div className="flex flex-row justify-between w-full">
             <div className="img-box mr-2 relative">
               <img
                 src="https://pagedone.io/asset/uploads/1701162880.png"
                 alt="perfume bottle image"
-                className="border border-gray-400 w-[60px] rounded-xl"
+                className="border border-gray-400  w-[60px] rounded-xl"
               />
-                 <svg
+              <svg
                 className="w-5 h-5"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
@@ -62,18 +63,19 @@ export default function LineItems() {
                 1
               </div>
             </div>
-            <div>
-              <h4 className="font-bold text-lg">Dusk Dark Hue</h4>
+            <div className="grow">
+              <h4 className="font-bold text-lg">Dusk Perfuam</h4>
               <p className="text-gray-700">Perfumes</p>
             </div>
-          </div>
           <div className="flex flex-row">
             <button className="text-red-500 hover:text-red-700">
               <i className="fas fa-trash"></i>
             </button>
             <span className="font-bold">$19.99</span>
           </div>
+          </div>
         </div>
+
       </div>
     </div>
   );

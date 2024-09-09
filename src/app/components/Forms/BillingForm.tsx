@@ -2,7 +2,12 @@ import React from 'react'
 import InputField from '@/app/components/Input/inputField'
 import Select from '@/app/components/Input/select'
 
-export default function BillingForm() {
+interface ChildComponentProps {
+  handleBillingChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+
+const BillingForm: React.FC<ChildComponentProps> = ({ handleBillingChange }) => {
   return (
     <div>
             <div className="border rounded-md mb-3 p-4">
@@ -22,6 +27,7 @@ export default function BillingForm() {
                         placeholder="First name(optional)"
                         className=""
                         label="First name(optinal)"
+                        onChange={handleBillingChange}
                       />
                     </div>
                     <div className="relative w-1/2">
@@ -32,6 +38,8 @@ export default function BillingForm() {
                         className=""
                         label="Last name"
                         required
+                        onChange={handleBillingChange}
+
                       />
                     </div>
                   </div>
@@ -53,6 +61,8 @@ export default function BillingForm() {
                       label="Address"
                       error="Address is required."
                       required
+                      onChange={handleBillingChange}
+
                     />
                   </div>
 
@@ -63,6 +73,8 @@ export default function BillingForm() {
                       placeholder="Apartment, suite, etc. (optional)"
                       className=""
                       label="Apartment, suite, etc. (optional)"
+                      onChange={handleBillingChange}
+
                     />
                   </div>
 
@@ -76,6 +88,8 @@ export default function BillingForm() {
                         label="City"
                         error="City is required."
                         required
+                        onChange={handleBillingChange}
+
                       />
                     </div>
 
@@ -97,6 +111,7 @@ export default function BillingForm() {
                         label="Pin code"
                         error="Pin code is required."
                         required
+                        onChange={handleBillingChange}
                       />
                     </div>
                   </div>
@@ -106,3 +121,5 @@ export default function BillingForm() {
     </div>
   )
 }
+
+export default BillingForm

@@ -3,25 +3,24 @@ import React from "react";
 interface InputGroupProps {
   label: string;
   type?: string;
+  name?: string;
   required?: boolean;
   placeholder?: string;
   id?: string;
   inputSize?: string;
   className?: string;
-  error?: string;
+  error?: any;
   value?: string;
   onChange?: any;
 }
 
 export default function InputField({
-  id,
   label,
   inputSize,
   type,
   className,
   placeholder,
   error,
-  value = "",
   ...rest
 }: InputGroupProps) {
   const classes = `${inputSize || ""} ${className || ""}`;
@@ -31,7 +30,6 @@ export default function InputField({
       <div className="relative">
         <input
           type={type}
-          id={id}
           className={`${classes} peer p-4 block w-full border-2 border-gray-200 rounded-lg text-sm
          placeholder:text-transparent 
        focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50
@@ -44,8 +42,6 @@ export default function InputField({
         [&:not(:placeholder-shown)]:pb-2
         autofill:pt-6
         autofill:pb-2`}
-        readOnly
-          value={value}
           placeholder={placeholder}
           {...rest}
         />

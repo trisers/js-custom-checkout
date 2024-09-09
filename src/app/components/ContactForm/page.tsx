@@ -5,50 +5,73 @@ import InputField from "@/app/components/Input/inputField";
 import Select from "../Input/select";
 import BillingForm from "@/app/components/Forms/BillingForm";
 
-interface FormValues {
-  name: string;
+interface UserFormInput {
+  first_name: string;
+  last_name: string;
   email: string;
+  country:string;
+  address:string;
+  address2:string;
+  city:string;
+  state:string;
+  pinCode:string;
 }
 
-interface CityOptionValues {
-  name: string;
-  value: string;
+interface FormData {
+  shipping_address: {
+    [key: string]: string;
+  },
+  billing_address: {
+    [key: string]: string;
+  };
 }
+
 
 export default function ContactForm() {
   const [useShipAsBill, setUseShipAsBill] = useState(true);
   const [paymentType, setPaymentType] = useState(true); // if true it means credit our if false is cash on
+  const [formData,setFormData]=useState({shipping_address:{},billing_address:{}});
+  const handleSubmit=(e:any) =>{
+      e.preventDefault();
+      console.log(formData)
+  }
 
-  // const [cityOptions,setCityOptions]=useState([
-  //    {name:"New york",value:"new york"},
-  //    {name:"Paris",value:"paris"
-  //   }
-  //   ])
-
-  const initialValues: FormValues = {
-    name: "",
-    email: "",
+  const handleChange = (e: any) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      shipping_address: {
+        ...prevFormData?.shipping_address, 
+        [e.target.name]: e.target.value,
+      },
+    }));
   };
 
-  const handleSubmit = (values: FormValues) => {
-    console.log(values);
-    // Perform form submission logic here
+  const handleBillingChange = (e: any) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      shipping_address: {
+        ...prevFormData?.shipping_address, 
+        [e.target.name]: e.target.value,
+      },
+    }));
   };
-
+  
   return (
     <>
       <div className="p-4 shadow-md">
-        <form>
+        <form onSubmit={handleSubmit}>
           <h4 className="text-lg font-bold mb-3 text-black">Contact</h4>
           <div className="mb-3 relative">
             <InputField
               id="email"
+              name="email"
               type="email"
               placeholder="email"
               className=""
               label="Email or mobile phone number"
               error="Please provide a valid email or mobile phone number."
               // onMouseLeave={()=>validateEmail()}
+              onChange={handleChange}
             />
           </div>
           <h4 className="text-lg font-bold mb-3 text-black">Delivery</h4>
@@ -57,20 +80,25 @@ export default function ContactForm() {
             <div className="relative w-1/2">
               <InputField
                 id="fname"
+                name="first_name"
                 type="text"
                 placeholder="First name(optional)"
                 className=""
                 label="First name(optinal)"
+              onChange={handleChange}
               />
             </div>
             <div className="relative w-1/2">
               <InputField
                 id="lname"
+                name="last_name"
                 type="text"
                 placeholder="Last name"
                 className=""
                 label="Last name"
                 required
+              onChange={handleChange}
+
               />
             </div>
           </div>
@@ -86,22 +114,27 @@ export default function ContactForm() {
           <div className="mb-3">
             <InputField
               id="address"
+              name="address"
               type="text"
               placeholder="Address"
               className=""
               label="Address"
               error="Address is required."
               required
+              onChange={handleChange}
             />
           </div>
 
           <div className="mb-3 relative">
             <InputField
               id="address2"
+              name="address2"
               type="text"
               placeholder="Apartment, suite, etc. (optional)"
               className=""
               label="Apartment, suite, etc. (optional)"
+              onChange={handleChange}
+
             />
           </div>
 
@@ -109,12 +142,15 @@ export default function ContactForm() {
             <div className="relative w-1/3">
               <InputField
                 id="city"
+                name="city"
                 type="text"
                 placeholder="City"
                 className=""
                 label="City"
                 error="City is required."
                 required
+              onChange={handleChange}
+
               />
             </div>
 
@@ -130,16 +166,18 @@ export default function ContactForm() {
             <div className="relative w-1/3">
               <InputField
                 id="pinCode"
+                name="pinCode"
                 type="text"
                 placeholder="Postal code"
                 className=""
                 label="Pin code"
                 error="Pin code is required."
                 required
+              onChange={handleChange}
+
               />
             </div>
           </div>
-        </form>
         <div className="mb-3 form-check d-none">
           <input
             type="checkbox"
@@ -372,7 +410,7 @@ export default function ContactForm() {
                 </label>
               </div>
 
-              {!useShipAsBill && <BillingForm />}
+              {!useShipAsBill && <BillingForm handleBillingChange={handleBillingChange}/>}
             </div>
           </Fragment>
         )}
@@ -403,6 +441,8 @@ export default function ContactForm() {
             Complete Order
           </button>
         )}
+        </form>
+
       </div>
     </>
   );
